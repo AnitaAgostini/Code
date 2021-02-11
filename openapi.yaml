@@ -1,0 +1,161 @@
+openapi: 3.0.0
+info:
+  x-skaffolder-id-project: 6025093ba3e049112323f61d
+  title: Code
+  description: You can obtain JWT token from login API
+  version: 0.1
+servers:
+  - url: http://localhost:3000/api
+    description: Local server for testing
+paths:
+  /login:
+    post:
+      x-skaffolder-ignore: true
+      summary: Login API
+      security: []
+      tags:
+        - Security
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+              example:
+                username: admin
+                password: 62f264d7ad826f02a8af714c0a54b197935b717656b80461686d450f7b3abde4c553541515de2052b9af70f710f0cd8a1a2d3f4d60aa72608d71a63a9a93c0f5
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+  /verifyToken:
+    post:
+      x-skaffolder-ignore: true
+      summary: Verify token API
+      security: []
+      tags:
+        - Security
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                token:
+                  type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+  /changePassword:
+    post:
+      x-skaffolder-ignore: true
+      summary: Change password API
+      tags:
+        - Security
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                passwordNew:
+                  type: string
+                passwordOld:
+                  type: string
+      responses:
+        "200":
+          description: OK
+security:
+  - bearerAuth: []
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    Compagnia:
+      x-skaffolder-id: 60253496a3e049112323f6eb
+      x-skaffolder-id-db: 6025093ba3e049112323f61e
+      x-skaffolder-id-entity: 60253495a3e049112323f6ea
+      x-skaffolder-url: /compagnia
+      properties:
+        _id:
+          type: string
+          x-skaffolder-required: true
+        Name:
+          type: string
+          x-skaffolder-id-attr: 60253610a3e049112323f6ed
+          x-skaffolder-type: String
+          x-skaffolder-required: true
+      x-skaffolder-relations: 
+      required:
+        - _id
+        - Name
+    Contatti:
+      x-skaffolder-id: 60253483a3e049112323f6e7
+      x-skaffolder-id-db: 6025093ba3e049112323f61e
+      x-skaffolder-id-entity: 60253483a3e049112323f6e0
+      x-skaffolder-url: /contatti
+      properties:
+        _id:
+          type: string
+          x-skaffolder-required: true
+        Birthday:
+          type: integer
+          x-skaffolder-id-attr: 60253483a3e049112323f6e4
+          x-skaffolder-type: Date
+        Gender:
+          type: string
+          x-skaffolder-id-attr: 60253483a3e049112323f6e3
+          x-skaffolder-type: String
+          x-skaffolder-enumeration:
+            - F
+            - M
+        Lastname:
+          type: string
+          x-skaffolder-id-attr: 60253483a3e049112323f6e2
+          x-skaffolder-type: String
+          x-skaffolder-required: true
+        Name:
+          type: string
+          x-skaffolder-id-attr: 60253483a3e049112323f6e1
+          x-skaffolder-type: String
+          x-skaffolder-required: true
+      x-skaffolder-relations:
+        WorkIN:
+          x-skaffolder-id: 6025361ea3e049112323f6ee
+          x-skaffolder-type: 1:m
+          x-skaffolder-ent1: 60253483a3e049112323f6e0
+          x-skaffolder-ent2: 60253495a3e049112323f6ea
+      required:
+        - _id
+        - Lastname
+        - Name
+  x-skaffolder-db:
+    - x-skaffolder-id: 6025093ba3e049112323f61e
+      x-skaffolder-name: Code_db
+  x-skaffolder-page:
+    - x-skaffolder-id: 6025093ba3e049112323f626
+      x-skaffolder-name: Home
+      x-skaffolder-url: /home
+      x-skaffolder-template: 
+      x-skaffolder-resource: 
+      x-skaffolder-services: 
+      x-skaffolder-nesteds: 
+      x-skaffolder-links: 
+      x-skaffolder-roles: []
+  x-skaffolder-roles: 
+    - x-skaffolder-id: 6025093ca3e049112323f629
+      x-skaffolder-name: ADMIN
